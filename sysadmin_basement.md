@@ -487,11 +487,119 @@ c. ip addr
 	注：观察Linux的内存使用情况时，只要没有发现用swap的交换空间，就不用担心自己的内存太少；如果常常看到swap用了很多，那么就要考虑增加物理内存了。这也是在Linux服务器上看内存是否够用的标准。
 
 ### 2. vmstat
+a. vmstat 1 
+
+➜  ~ vmstat -S M 1 5
+
+	procs -----------memory---------- ---swap-- -----io---- -system-- ----cpu----
+	r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa
+ 	1  0      1  56541    384  36313    0    0    10   152    0    0  3  1 95  1
+ 	1  0      1  56543    384  36313    0    0   128   168 7271 11527  1  0 99  0
+	0  0      1  56542    384  36313    0    0     0   112 6045 9615  1  0 99  0
+ 	0  0      1  56543    384  36313    0    0   132   192 11305 17468  1  1 98  0
+ 	0  0      1  56539    384  36313    0    0   128   456 13028 20222  1  1 98  0
+
+b. vmstat -a
+
+➜  ~ vmstat -S M 1 5 -a
+
+	procs -----------memory---------- ---swap-- -----io---- -system-- ----cpu----
+ 	r  b   swpd   free  inact active   si   so    bi    bo   in   cs us sy id wa
+	 2  0      1  56540  30690   7020    0    0    10   152    0    0  3  1 95  1
+ 	1  0      1  56543  30690   7017    0    0   128   200 8258 12908  1  1 99  0
+ 	0  0      1  56540  30691   7020    0    0     0   176 8696 13414  1  1 98  0
+ 	1  0      1  56543  30691   7017    0    0   128  1116 11617 17652  1  0 98  0
+ 	0  0      1  56541  30691   7019    0    0     0   176 7946 12529  1  0 99  0
+
+c. vmstat -s
+
+➜  ~ vmstat -s
+
+	     99197360 K total memory
+	     41313428 K used memory
+	      7193792 K active memory
+	     31438464 K inactive memory
+	     57883936 K free memory
+	       394068 K buffer memory
+	     37204624 K swap cache
+	      2096444 K total swap
+	         1992 K used swap
+	      2094452 K free swap
+	   1277643835 non-nice user cpu ticks
+	           11 nice user cpu ticks
+	    371033881 system cpu ticks
+	  41192773129 idle cpu ticks
+	    247499620 IO-wait cpu ticks
+	        39100 IRQ cpu ticks
+	     48138900 softirq cpu ticks
+	            0 stolen cpu ticks
+	   4450333523 pages paged in
+	  65678511936 pages paged out
+	       132467 pages swapped in
+	       180917 pages swapped out
+	   1237774778 interrupts
+	   3301154853 CPU context switches
+	   1346296992 boot time
+	     44515969 forks
+
+
 ### 3. ps
+a. ps aux
+b. ps -e -o "%c : %p : %z :%a" |sort -k5 -nr|head
+
 ### 4. dstat
+a. dstat -ms
+
+➜  ~ dstat -ms 1 5
+
+    ------memory-usage----- ----swap---
+     used  buff  cach  free| used  free
+    3639M  385M 35.6G 55.1G|1992k 2045M
+    3641M  385M 35.6G 55.1G|1992k 2045M
+    3638M  385M 35.6G 55.1G|1992k 2045M
+    3638M  385M 35.6G 55.1G|1992k 2045M
+    3638M  385M 35.6G 55.1G|1992k 2045M
+    3641M  385M 35.6G 55.1G|1992k 2045M
+
+b. dstat --top-mem
+
+➜  ~ dstat --top-mem 1 5
+
+    --most-expensive-
+      memory process 
+    mongod      35.0G
+    mongod      35.0G
+    mongod      35.0G
+    mongod      35.0G
+    mongod      35.0G
+    mongod      35.0G
+
+c. dstat -v
+
+➜  ~ dstat -v 1 5
+
+    ---procs--- ------memory-usage----- ---paging-- -dsk/total- ---system-- ----total-cpu-usage----
+    run blk new| used  buff  cach  free|  in   out | read  writ| int   csw |usr sys idl wai hiq siq
+    0.0   0 2.5|3649M  385M 35.6G 55.1G|  30B   41B| 247k 3638k|3162    20k|  3   1  95   1   0   0
+    3.0   0 2.0|3646M  385M 35.6G 55.1G|   0     0 |   0   144k|7217    11k|  1   1  99   0   0   0
+      0   0 1.0|3650M  385M 35.6G 55.1G|   0     0 | 176k  376k|  17k   28k|  1   1  98   0   0   0
+    1.0   0 1.0|3647M  385M 35.6G 55.1G|   0     0 | 128k  160k|8258    13k|  1   0  99   0   0   0
+    1.0   0 5.0|3648M  385M 35.6G 55.1G|   0     0 |   0   120k|8138    12k|  1   1  99   0   0   0
+      0   0 1.0|3646M  385M 35.6G 55.1G|   0     0 | 128k  336k|  15k   23k|  1   1  98   0   0   0
+
 ### 5. top
 ### 6. slabtop
 ### 7. buffer 与 cache
+		buffer与cache操作的对象不一样。
+    	buffer(缓冲)是为了提高内存和硬盘(或其它I/O设备)之间的数据交换的速度而设计的。
+    	cache(缓存)是为了提高cpu和内存之间的数据交换而设计的，也就是平常见到的一级缓存、二级缓存、三级缓存等。
+
+    	cpu在执行程序所用的指令和读数据都是针对内存的，也就是从内存中取得的。由于内存的读写速度慢，为了提高cpu和内存之间的数据交换的速度，在cpu 和内存之间增加了cache，他的速度比内存块，但是造价高，又由于在cpu内不能集成太对集成电路，所以一般cache比较小，以后intel等公司为 了进一步提高速度，又增加了二级cache，甚至三级cache，它是根据程序的局部性原理而设计的，就是cpu执行的指令和访问的数据往往在集中的某一块，所以把这块内容放入cache后，cpu就不用再访问内存了，这就提高了访问速度。当然若cache中没有cpu所需要的内容，还是要访问内存的。
+    	缓冲(buffers) 是根据磁盘的读写设计的，把分散的写操作集中进行，减少了磁盘碎片和硬盘的反复寻道，从而提高系统性能。linux有一个守护进程定期清空缓冲内容(即写入磁盘)，也可以通过sync命令手动清空缓冲。举个例子吧：我这里有一个ext2的U盘，我往里面copy一个3M的MP3.但U盘的灯没有跳动，过了 一会儿(或者手动输入sync)U盘的灯就跳动起来了。卸载设备时会清空缓冲，所以有些时候卸载一个设备要等上几秒钟。
+    	修改/etc/sysctl.conf中的vm.swappiness右边的数字可以在下次开机时调节swap使用策略。该数字范围是0-100，数字越大越倾向于使用swap。默认为60，可以改一下试试。--两者都是RAM中的数据。
+    	简单来说，buffer是即将要写入磁盘的，而cache是被从磁盘中读出来的。
+    	buffer是由各种进程分配的，被用在如输入队列等方面。一个简单的例子如某个进程要求有多个字段读入，在所有字段被读入完整之前，进程就先前读入的字段放在buffer中保存。
+    	cache经常被用在磁盘的I/O请求上，如果有多个进程都要访问某个文件，于是该文件便被做成cache以方便下次被访问，这样可提高系统性能。
 
 ## 三、CPU和进程状态
 ### 1.CPU
