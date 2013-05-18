@@ -1,13 +1,13 @@
 # 基本部分
 ## 一、 系统硬件
 ### 1. 主板
-a. 序列号
+a. **序列号**
 
 ➜  ~  sudo dmidecode -t system |grep -i Serial
 
 	Serial Number: CNU9032T3N
 
-b. 厂商和型号
+b. **厂商和型号**
 
 ➜  ~  sudo dmidecode -t system                
 	
@@ -29,14 +29,14 @@ b. 厂商和型号
 	System Boot Information
         Status: No errors detected
 
-c. 出厂日期
+c. **出厂日期**
 
 ➜  ~  sudo dmidecode -t bios|grep -i date
 
         Release Date: 08/20/2008
 
 ### 2. CPU
-a. /proc/cpuinfo
+a. **/proc/cpuinfo**
 
 ➜  ~ cat /proc/cpuinfo
 
@@ -69,7 +69,7 @@ a. /proc/cpuinfo
 	cache_alignment : 64
 	address sizes   : 36 bits physical, 48 bits virtual
 	power management:
-b. lscpu
+b. **lscpu**
 
 ➜  ~ lscpu
 
@@ -90,7 +90,7 @@ b. lscpu
 	L1i cache:             32K
 	L2 cache:              256K
 	L3 cache:              12288K
-b. dmidecode -t processor
+b. **dmidecode -t processor**
 
 ➜  ~  sudo dmidecode -t processor
 
@@ -201,7 +201,7 @@ a. /proc/meminfo
 	DirectMap4k:       32760 kB
 	DirectMap2M:      880640 kB
 
-b. dmidecode -t memory
+b. **dmidecode -t memory**
 
 ➜  ~  sudo dmidecode -t memory 
 
@@ -255,7 +255,7 @@ b. dmidecode -t memory
         Asset Tag: Not Specified
         Part Number: HYMP112S64CP6-Y5  
 
-c. 内存插槽数，每条内存大小
+c. **内存插槽数，每条内存大小**
 
 ➜  ~  sudo dmidecode -t memory |grep -i size
 
@@ -278,13 +278,13 @@ c. 内存插槽数，每条内存大小
         Size: No Module Installed
         Size: No Module Installed
 
-d. 最大支持内存
+d. **最大支持内存**
 
 ➜  ~  sudo dmidecode -t memory |grep -i max    
 
       Maximum Capacity: 288 GB
 
-e. 内存频率
+e. **内存频率**
 
 ➜  ~  sudo dmidecode -t memory |grep -i speed
 
@@ -309,8 +309,8 @@ e. 内存频率
 
 
 ### 4. 硬盘
-#### 4.1. lspci
-a. LSI MagaSAS
+#### 4.1. **lspci**
+a. **LSI MagaSAS**
 
 ➜  ~ lspci |grep -i raid
 
@@ -324,7 +324,7 @@ tools
 	megclisas-status
 	megamgr
 		
-b. Adaptec
+b. **Adaptec**
 
 ➜  ~ lspci |grep -i raid
 
@@ -334,7 +334,7 @@ tools
 
 	arcconf
 
-#### 4.2. lsscsi
+#### 4.2. **lsscsi**
 a. lsscsi
 
 ➜  ~ sudo lsscsi
@@ -362,7 +362,7 @@ b. /proc/scsi/scsi
 	  Vendor: SEAGATE  Model: ST3300555SS      Rev: T105
 	  Type:   Direct-Access                    ANSI SCSI revision: 05
 
-#### 4.3. smartctl
+#### 4.3. **smartctl**
 a. smartctl -a /dev/sda
 
 ➜  ~ sudo smartctl -a /dev/sda
@@ -391,7 +391,7 @@ c. smartctl -a /dev/sda|grep -i serial
 	Serial Number:    090107FB0200LCJJVXPB
 
 ### 5. 网卡
-#### 5.1. 网卡类型
+#### 5.1. **网卡类型**
 
 lspci｜grep -i net
 
@@ -405,13 +405,13 @@ lspci｜grep -i net
 
 	10:00.0 Network controller: Broadcom Corporation BCM4312 802.11b/g LP-PHY (rev 01)
 
-#### 5.2. 网卡驱动
+#### 5.2. **网卡驱动**
 `升级系统的时候，就要查看下网卡驱动安装上了没，尤其是bnx系列网卡特别要注意`
 
 update-initramfs -u -k \`uname -r\`
 
 #### 5.3. 查看工具
-a. ethtool
+a. **ethtool**
 
 ➜  ~  sudo ethtool eth0 
 
@@ -447,7 +447,7 @@ b. mii－tool
 	SIOCGMIIPHY on 'eth2' failed: Resource temporarily unavailable
 	SIOCGMIIPHY on 'eth3' failed: Resource temporarily unavailable
 
-c. ip addr
+c. **ip addr**
 
 ➜  ~  ip addr
 
@@ -465,7 +465,7 @@ c. ip addr
     link/ether 00:21:00:a4:49:f6 brd ff:ff:ff:ff:ff:ff
 
 ## 二、内存
-### 1. free
+### 1. **free**
 	➜  ~  free -m
              total       used       free     shared    buffers     cached
 	Mem:           993        914         78          0        132        607
@@ -486,7 +486,7 @@ c. ip addr
 
 	注：观察Linux的内存使用情况时，只要没有发现用swap的交换空间，就不用担心自己的内存太少；如果常常看到swap用了很多，那么就要考虑增加物理内存了。这也是在Linux服务器上看内存是否够用的标准。
 
-### 2. vmstat
+### 2. **vmstat**
 a. vmstat 1 
 
 ➜  ~ vmstat -S M 1 5
@@ -543,11 +543,11 @@ c. vmstat -s
 	     44515969 forks
 
 
-### 3. ps
+### 3. **ps**
 a. ps aux
 b. ps -e -o "%c : %p : %z :%a" |sort -k5 -nr|head
 
-### 4. dstat
+### 4. **dstat**
 a. dstat -ms
 
 ➜  ~ dstat -ms 1 5
@@ -589,7 +589,7 @@ c. dstat -v
 
 ### 5. top
 ### 6. slabtop
-### 7. buffer 与 cache
+### 7. **buffer 与 cache**
 		buffer与cache操作的对象不一样。
     	buffer(缓冲)是为了提高内存和硬盘(或其它I/O设备)之间的数据交换的速度而设计的。
     	cache(缓存)是为了提高cpu和内存之间的数据交换而设计的，也就是平常见到的一级缓存、二级缓存、三级缓存等。
@@ -603,22 +603,216 @@ c. dstat -v
 
 ## 三、CPU和进程状态
 ### 1.CPU
-#### 1.1. top
+#### 1.1. **top**
+a. **整体占用**
+
+	top - 11:49:30 up 3 days, 16:54,  1 user,  load average: 4.18, 3.82, 3.82
+	Tasks: 294 total,   4 running, 290 sleeping,   0 stopped,   0 zombie
+	%Cpu(s): 16.6 us,  0.3 sy,  0.0 ni, 83.0 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st
+	KiB Mem:  99197352 total, 51128244 used, 48069108 free,   797128 buffers
+	KiB Swap:  2096444 total,        0 used,  2096444 free, 44232372 cached
+
+    us, user    : time running un-niced user processes
+    sy, system  : time running kernel processes
+    ni, nice    : time running niced user processes
+    wa, IO-wait : time waiting for I/O completion
+    hi : time spent servicing hardware interrupts
+    si : time spent servicing software interrupts
+    st : time stolen from this vm by the hypervisor
+
+b. **单核占用(按数字1即可查看)**
+
+    top - 11:50:19 up 3 days, 16:55,  1 user,  load average: 4.33, 3.94, 3.86
+    Tasks: 294 total,   5 running, 289 sleeping,   0 stopped,   0 zombie
+    %Cpu0  : 71.7 us,  1.6 sy,  0.0 ni, 26.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu1  :100.0 us,  0.0 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu2  : 48.8 us,  1.6 sy,  0.0 ni, 48.8 id,  0.0 wa,  0.0 hi,  0.8 si,  0.0 st
+    %Cpu3  :  6.5 us,  0.8 sy,  0.0 ni, 92.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu4  : 11.5 us,  1.6 sy,  0.0 ni, 86.9 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu5  :  8.2 us,  0.0 sy,  0.0 ni, 91.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu6  : 10.6 us,  1.6 sy,  0.0 ni, 87.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu7  : 17.9 us,  0.8 sy,  0.0 ni, 81.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu8  : 18.0 us,  0.0 sy,  0.0 ni, 82.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu9  :  0.8 us,  0.0 sy,  0.0 ni, 99.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu10 :  4.0 us,  0.8 sy,  0.0 ni, 95.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu11 :  0.8 us,  0.0 sy,  0.0 ni, 99.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu12 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu13 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu14 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu15 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu16 :  0.0 us,  1.6 sy,  0.0 ni, 98.4 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu17 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu18 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu19 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu20 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu21 :  0.8 us,  0.0 sy,  0.0 ni, 99.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu22 :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    %Cpu23 :  0.0 us,  0.8 sy,  0.0 ni, 99.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    KiB Mem:  99197352 total, 51119700 used, 48077652 free,   797228 buffers
+    KiB Swap:  2096444 total,        0 used,  2096444 free, 44230160 cached
+
 #### 1.2. ps
+a. ps aux
+
+    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+    root         1  0.0  0.0  10648   696 ?        Ss    2012   2:39 init [2]
+    root         2  0.0  0.0      0     0 ?        S     2012   0:00 [kthreadd]
+    root         3  0.0  0.0      0     0 ?        S     2012  15:37 [ksoftirqd/0]
+    root         5  0.0  0.0      0     0 ?        S     2012   7:29 [kworker/u:0]
+    root         6 69.3  0.0      0     0 ?        S     2012 260714:15 [migration/0]
+
+
+b. **cpu占用排名前十**
+
+ps -e -o "%c : %p : %z :%a" |sort -k5 -nr|head
+
 #### 1.3. vmstat
-#### 1.4. dstat
+a. vmstat 1
+
+    procs -----------memory---------- ---swap-- -----io---- -system-- ----cpu----
+     r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa
+     2  0      1  54362    656  21028    0    0     8   135    0    0  3  1 95  0
+     1  0      1  54340    656  21046    0    0     0    64 23399 38962  5  1 93  0
+     1  0      1  54322    656  21064    0    0     0   236 3714 4284  5  0 95  0
+     1  0      1  54303    656  21082    0    0     0    40 5053 6121  5  1 95  0
+     2  0      1  54285    656  21101    0    0     0     0 11561 7237  5  1 94  0
+     2  0      1  54265    656  21118    0    0     0    52 12087 19945  5  1 95  0
+     1  0      1  54245    656  21136    0    0     0   172 17392 28452  5  1 94  0
+     1  0      1  54227    656  21154    0    0     0     0 3600 4315  4  0 95  0
+     1  0      1  54210    656  21172    0    0     0     0 6312 8115  5  0 95  0
+     2  0      1  54189    656  21190    0    0     0   200 9554 17258  5  1 94  0
+
+    us: Time spent running non-kernel code.  (user time, including nice time)
+    sy: Time spent running kernel code.  (system time)
+    id: Time spent idle.  Prior to Linux 2.5.41, this includes IO-wait time.
+    wa: Time spent waiting for IO.  Prior to Linux 2.5.41, included in idle.
+    st: Time stolen from a virtual machine.  Prior to Linux 2.6.11, unknown.
+
+#### 1.4. **dstat**
+a. dstat
+
+    ----total-cpu-usage---- -dsk/total- -net/total- ---paging-- ---system--
+    usr sys idl wai hiq siq| read  writ| recv  send|  in   out | int   csw
+      3   1  95   0   0   0| 201k 3220k|   0     0 |  24B   33B|4502    25k
+      5   1  94   0   0   0|   0     0 | 715k  477k|   0     0 |7078  9979
+      5   1  95   0   0   0|   0   320k| 216k  140k|   0     0 |5786  8076
+      5   0  95   0   0   0|   0     0 | 195k  124k|   0     0 |4611  5927
+      5   1  94   0   0   0|   0   184k| 191k  111k|   0     0 |  16k   27k
+      5   1  94   0   0   0|   0   176k| 399k  302k|   0     0 |  14k   23k
+      5   1  94   0   0   0|   0   220k|3315k  288k|   0     0 |  15k   24k
+      5   1  94   0   0   0|   0   160k| 791k  281k|   0     0 |  10k   15k
+      5   1  94   0   0   0|   0   148k|1459k  252k|   0     0 |  12k   17k
+      4   0  95   0   0   0|   0     0 | 407k  186k|   0     0 |3458  3454
+      5   0  95   0   0   0|   0    76k| 192k   86k|   0     0 |6801  9760
+
+b. **dstat -v**
+
+    ---procs--- ------memory-usage----- ---paging-- -dsk/total- ---system-- ----total-cpu-usage----
+    run blk new| used  buff  cach  free|  in   out | read  writ| int   csw |usr sys idl wai hiq siq
+    0.0   0 2.6|20.1G  656M 19.3G 54.5G|  24B   33B| 201k 3220k|4502    25k|  3   1  95   0   0   0
+    1.0   0 3.0|20.1G  656M 19.3G 54.5G|   0     0 |   0   268k|  19k   30k|  1   1  97   0   0   0
+    1.0   0 1.0|20.1G  656M 19.3G 54.5G|   0     0 |   0     0 |4471  6321 |  1   0  99   0   0   0
+    1.0   0 2.0|20.1G  656M 19.3G 54.5G|   0     0 |   0    64k|5223  8064 |  1   1  99   0   0   0
+      0   0 2.0|20.1G  656M 19.3G 54.5G|   0     0 |   0   208k|  18k   30k|  1   1  97   0   0   0
+      0   0 1.0|20.1G  656M 19.3G 54.5G|   0     0 |   0   156k|8036    12k|  1   1  99   0   0   0
+    1.0   0 1.0|20.1G  656M 19.3G 54.5G|   0     0 |   0   160k|  16k   27k|  1   1  97   0   0   0
+    1.0   0 3.0|20.1G  656M 19.3G 54.5G|   0     0 |   0   148k|7654    11k|  1   1  98   0   0   0
+    1.0   0 1.0|20.1G  656M 19.3G 54.5G|   0     0 |   0   148k|  15k   21k|  3   1  97   0   0   0
+      0   0 3.0|20.1G  656M 19.3G 54.5G|   0     0 |   0     0 |5672  6959 |  1   1  99   0   0   0
+      0   0 1.0|20.1G  656M 19.3G 54.5G|   0     0 |   0     0 |3359  4272 |  0   0  99   0   0   0
+
 #### 1.6. pidstat
 #### 1.7. mpstat
+a. mpstat 1 5
+
+    Linux 3.2.0-3-amd64 (xxxx.hostname)        05/18/2013      _x86_64_        (24 CPU)
+
+    12:13:38 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle
+    12:13:39 PM  all    5.26    0.00    0.79    0.00    0.00    0.13    0.00    0.00   93.82
+    12:13:40 PM  all    4.92    0.00    0.75    0.00    0.00    0.21    0.00    0.00   94.12
+    12:13:41 PM  all    4.64    0.00    0.59    0.00    0.00    0.17    0.00    0.00   94.60
+    12:13:42 PM  all    4.92    0.00    0.54    0.00    0.00    0.04    0.00    0.00   94.49
+    12:13:43 PM  all    5.48    0.00    1.00    0.00    0.00    0.17    0.00    0.00   93.35
+    Average:     all    5.05    0.00    0.74    0.00    0.00    0.14    0.00    0.00   94.08
+
+    CPU     Processor number. The keyword all indicates that statistics are calculated as averages among all processors.
+    %usr    Show the percentage of CPU utilization that occurred while executing at the user level (application).
+    %nice   Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.
+    %sys    Show the percentage of CPU utilization that occurred while executing at the system level (kernel).
+    %iowait Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.
+    %irq    Show the percentage of time spent by the CPU or CPUs to service hardware interrupts.
+    %soft   Show the percentage of time spent by the CPU or CPUs to service software interrupts.
+    %steal  Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.
+    %guest  Show the percentage of time spent by the CPU or CPUs to run a virtual processor.
+    %idle   Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.
+
+b. mpstat -P ALL 1 5
+
+查看单个CPU占用
+
 ### 2. 进程
 #### 2.1. 状态
+##### R
+##### S
+##### D
+##### T
+##### Z
+
 #### 2.2. ps
+a. ps aux
+
+b. ps auxf
+
+c. ps -ef
+
 #### 2.3. top 
 #### 2.4. lsof
+a. lsof -p pid
+
 ## 四、网络
 ### 1. 网卡状态
+a. erhtool
+ethtool eth0
+
+b. mii-tool
+mii-tool eth0
+
+c. ip link
+ip link show
+
 ### 2. 网卡流量
+a. sar -n DEV 1 1000
+
+b. bmon
+
+c. iptraf
+
+d. dstat --net-packets -n
+
+e. iftop
+
 ### 3. 网络配置
+#### 3.1 ip
+a. /etc/network/interfaces
+
+b. ip address
+
+c. ifconfig
+
+d. curl ifconfig.me
+
+#### 3.2 route
+a. ip route
+
+b. netstat -rn
+
+c. route -n
+
 ### 4. 防火墙
+a. shorewall
+
+b. iptables
+
 ### 5. 调试工具
 #### 5.1. lsof
 #### 5.2. telnet
@@ -629,26 +823,159 @@ c. dstat -v
 #### 5.7. tc
 ## 五、文件系统和磁盘IO
 ### 1. 了解ext3，ext4，xfs，swap
+a. ext3
+
+mkfs.ext3
+
+mkfs.ext3 -U uuid
+
+b. ext4 
+
+mkfs.ext4
+
+mkfs.ext4 -U uuid
+
+c. xfs
+
+mkfs.xfs
+
+xfs_admin uuid
+
+d. swap
+
+mkswap
+
+dd文件swap
+
+swap分区
+
 ### 2. 会使用文件系统调试工具
+a. fsck
+
+fsck.ext3
+
+fsck.ext4
+
+fsck.xfs
+
 ### 3. 熟悉iostat，iotop
+a. iostat
+
+iostat -x 1 10
+
+iostat -k 1 10
+
+b. iotop
+
+c. 查看iowait
+
+iostat -x 1 10
+
+mpstat 1 10
+
 ### 4. 了解目录挂载，磁盘挂载，阅读fstab
+a. mount 
+
+mount -a
+
+umount
+
+umount -l
+
+b. fstab
+
+UUID=uuid  /file ext3/ext4/xfs  noatime 0 0
+
+c. 内存文件系统挂载
+
+mount -t tmpfs -o nosuid,nodev,size=10G,mode=1777 tmpfs /mnt/
+
+d. 移动硬盘挂载
+
+mount -t ntfs -o uid=tom,gid=tom,fmask=133,dmask=022 /dev/sdz1 /mnt/usb/
+
+e. blkid
+
+    /dev/sda1: UUID="b2bd9f7a-986c-4ee7-bc05-4cf43a896663" TYPE="ext3"
+    /dev/sda5: UUID="ff6117cf-5f8f-4b03-abcf-e784849a30eb" TYPE="swap"
+    /dev/sda6: LABEL="var" UUID="a0a59083-abb4-40e8-a7d6-b635e0db5d46" TYPE="ext3"
+    /dev/sda7: LABEL="tmp" UUID="1aa5f9c8-524a-4e69-b16b-2bfbc46bd948" TYPE="ext3"
+    /dev/sda8: LABEL="home" UUID="73cd148c-321b-4301-b099-8e0d1b1521b3" TYPE="ext4"
+
 ### 5. 增减swap
+a. swapon
+
+b. swapoff
+
+c. 禁用swap
+
+echo 0 >/proc/sys/vm/swappiness 
+
+/etc/sysctl.conf && sysctl -p
+
+sysctl -a|grep swappiness
+
+
 ### 6. 查看文件占用空间
+a. du -sh
+
+b. du -sh *
+
 ### 7. 查看文件系统占用空间
+a. df -h
+
+b. df -Th
+
+c. df -ih
+
 ### 8. 查找进程打开的文件
+1. fuser 
+
+fuser -mv /file
+
+2. lsof
+
+lsof -i:port
+
+lsof /file
+
 ### 9. raid管理
+#### 9.1 LSI MeggaSAS 
+a. megacli
+
+#### 9.2 Adaptec
+a. arcconf
+
 ## 六、Troubleshooting
 ### 1. dmesg
 ### 2. vmstat
 ### 3. top/iostat/free
 ### 4. last/lastlog
 ### 5. log
+/var/log/auth.log
+/var/log/user.log
+/var/log/messages
+
 ### 6. shell
+a. chsh -s /bin/bash user
+
+b. bashrc
+
+c. export
+
+d. jdk
+
+update-java-alternatives -s java-6-sun
+
 ### 7. 经验
 ## 七、在线资源调整
 ### 1. /etc/sysctl.conf
 ### 2. /etc/sysfs.conf
 ### 3. sysctl
+sysctl -a
+
+sysctl -q
+
 ### 4. /proc
 ### 5. /sys
 ## 八、其他
