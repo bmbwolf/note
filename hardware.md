@@ -91,7 +91,7 @@
 	cat /etc/sysconfig/hwconf
 	mpstat
 ##dmidecode信息查看	
-	查看机器型号    # dmidecode | grep "Product"
+    查看机器型号    # dmidecode | grep "Product"
     查看厂商    # dmidecode| grep  "Manufacturer"
     查看序列号    # dmidecode | grep  "Serial Number"
     查看CPU信息    # dmidecode | grep  "CPU"
